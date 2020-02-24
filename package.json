@@ -1,0 +1,58 @@
+{
+  "name": "api",
+  "version": "4.5.1",
+  "description": "API para ANDES",
+  "main": "index.js",
+  "dependencies": {
+    "@andes/mongoose-plugin-audit": "^1.1.0",
+    "apg": "^3.1.1",
+    "apg-lib": "^3.2.0",
+    "bcrypt-nodejs": "0.0.3",
+    "express": "^4.17.1",
+    "express-query-boolean": "^2.0.0",
+    "http": "0.0.0",
+    "http-status-codes": "^1.4.0",
+    "is-reachable": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "ldapjs": "^1.0.2",
+    "mongoose": "^5.4.14",
+    "passport": "^0.3.2",
+    "passport-jwt": "^4.0.0",
+    "request": "^2.83.0",
+    "require-dir": "^0.3.2",
+    "sha1": "^1.1.1",
+    "shiro-trie": "^0.4.9",
+    "swagger-jsdoc": "^3.5.0",
+    "typescript": "^2.6.2"
+  },
+  "scripts": {
+    "startNode": "tsc && gulp && concurrently \"npm run node\" ",
+    "start": "npm run parse && concurrently -r \"npm run tsc:w\" \"npm run node\" ",
+    "node": "nodemon -q ./index.js",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "tsc:next": "tsc --target es2018 --lib es2018",
+    "jobs": "tsc && node jobs/scheduler.js",
+    "lint": "tslint --project .",
+    "lint:fix": "tslint --project . --fix",
+    "parse": "apg -i core/term/controller/grammar/Expression-ABNF.txt -o core/term/controller/grammar/grammar.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Team Andes",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "https://github.com/andes/api#readme",
+  "devDependencies": {
+    "@types/request": "^2.48.1",
+    "before": "0.0.1",
+    "chai": "^4.1.2",
+    "nodemon": "^1.17.4",
+    "tslint": "^5.11.0",
+    "tslint-eslint-rules": "^5.3.1"
+  }
+}
