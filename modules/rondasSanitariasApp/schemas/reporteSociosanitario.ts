@@ -3,9 +3,19 @@ import * as mongoose from 'mongoose';
 
 // Exportar Schema
 export let ReporteSociosanitarioSchema = new mongoose.Schema({
-    idReporte: {
-        type: String
+    paciente: {
+        type: mongoose.Schema.Types.Mixed
+    },
+    hogar: {
+        type: mongoose.Schema.Types.Mixed
+    },
+    vivienda: {
+        type: mongoose.Schema.Types.Mixed
+    },
+    parcela: {
+        type: mongoose.Schema.Types.Mixed
     }
+
 });
 // Habilitar plugin de auditoría
 
