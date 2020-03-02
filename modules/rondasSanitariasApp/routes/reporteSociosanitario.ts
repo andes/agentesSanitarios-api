@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { ReporteSociosanitario } from '../schemas/reporteSociosanitario';
+import { esPacienteValidado } from '../controller/reporteSociosanitario';
 
 const router = express.Router();
 
@@ -25,15 +26,19 @@ router.get('/reporteSociosanitario/:id*?', (req, res, next) => {
 });
 
 router.post('/reporteSociosanitario', (req, res, next) => {
-    const insertreporteSociosanitario = new ReporteSociosanitario(req.body);
+    if (req.body.paciente && esPacienteValidado(req.body.paciente)) {
+        const insertreporteSociosanitario = new ReporteSociosanitario(req.body);
 
-    // Debe ir antes del save, y ser una instancia del modelo
-    insertreporteSociosanitario.save((errOnInsert) => {
-        if (errOnInsert) {
-            return next(errOnInsert);
-        }
-        res.json(insertreporteSociosanitario);
-    });
+        // Debe ir antes del save, y ser una instancia del modelo
+        insertreporteSociosanitario.save((errOnInsert) => {
+            if (errOnInsert) {
+                return next(errOnInsert);
+            }
+            res.json(insertreporteSociosanitario);
+        });
+    } else {
+        return next(500);
+    }
 });
 
 router.put('/reporteSociosanitario/:id', (req, res, next) => {

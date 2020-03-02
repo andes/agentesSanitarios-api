@@ -1,5 +1,16 @@
+import { AndesCache, ObjectId } from '@andes/core';
+import { RedisWebSockets } from '../config.private';
 import { AuthUsers } from './schemas/authUsers';
 import { profesional } from './../core/tm/schemas/profesional';
+
+
+export let AuthCache: AndesCache;
+
+if (RedisWebSockets.active) {
+    AuthCache = new AndesCache({ adapter: 'redis', port: RedisWebSockets.port, host: RedisWebSockets.host });
+} else {
+    AuthCache = new AndesCache({ adapter: 'memory' });
+}
 
 /**
  * Genera los datos de sesion de un usuarios.
@@ -76,3 +87,11 @@ export const checkMobile = (profesionalId) => {
         });
     });
 };
+
+/**
+ * Recupera los datos extras del TOKEN. Utiliza la cache para rápido acceso.
+ */
+
+export async function getTokenPayload(token, userData) {
+    return '';
+}
